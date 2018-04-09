@@ -42,7 +42,7 @@ class MainWindow(QMainWindow):
 		#playlistCtrlLayout = QHBoxLayout()
 		
 		label1 = QLabel()
-		pixmap = QPixmap('foo1.png') #changes dynamically
+		pixmap = QPixmap('meter.png') #changes dynamically
 		label1.setPixmap(pixmap)
 		
 		playBtn = QPushButton('Play')		
