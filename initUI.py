@@ -39,7 +39,11 @@ class MainWindow(QMainWindow):
 		controlArea = QVBoxLayout()		
 		seekSliderLayout = QHBoxLayout()
 		controls = QHBoxLayout()
-		playlistCtrlLayout = QHBoxLayout()
+		#playlistCtrlLayout = QHBoxLayout()
+		
+		label1 = QLabel()
+		pixmap = QPixmap('foo1.png') #changes dynamically
+		label1.setPixmap(pixmap)
 		
 		playBtn = QPushButton('Play')		
 		stopBtn = QPushButton('Stop')		
@@ -63,9 +67,10 @@ class MainWindow(QMainWindow):
 		controls.addWidget(playBtn)
 		controls.addWidget(stopBtn)
 
+		controlArea.addWidget(label1)
 		controlArea.addLayout(seekSliderLayout)
 		controlArea.addLayout(controls)
-		controlArea.addLayout(playlistCtrlLayout)
+		#controlArea.addLayout(playlistCtrlLayout)
 		return controlArea
 	
 	def playHandler(self):
