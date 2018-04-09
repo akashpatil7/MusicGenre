@@ -60,7 +60,7 @@ def gauge(labels=['Rock','Folk','Electronic','Jazz','Reggae','Punk','Metal','Cla
     ax.axes.set_yticks([])
     ax.axis('equal')
     plt.tight_layout()
-    fig.savefig(fname, dpi=200)
+    fig.savefig("meter.png", dpi=200)
     plt.draw()  
 
 gauge()
