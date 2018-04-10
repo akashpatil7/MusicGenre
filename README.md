@@ -1,5 +1,5 @@
 # MusicGenre
 
-For installation of all the Python packages necesary:
+For installation of all the Python packages necessary:
 
 *pip install -r requirements.txt*
