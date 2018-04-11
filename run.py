@@ -62,7 +62,17 @@ def create_data_pickle(self):
                 else:
                     output=np.vstack((output,mel_output))
         print(output.shape)
-        return output   
+        return output
+
+def predict(self,data_x):
+        model=load_model('model/weights_gtzan.h5')
+        output = model.predict(data_x)
+        data_y = np.argmax(output, axis=1)
+        print(data_y.shape)
+        for i in range(0,len(data_y)):
+            predicted_genre=GENRE_LOOKUP[data_y[i]]
+            self.output_file.write(str(i)+'|'+self.file_list[i]+'|'+predicted_genre+'\n')
+        return data_y
 
 def main():
     parser = argparse.ArgumentParser(description='Recognize the genre of music in a given folder')
@@ -70,3 +80,7 @@ def main():
     parser.add_argument('extension',metavar='extension',type=str,help='Song extension like mp3',default='mp3')
     args=parser.parse_args()
     data_x=genre_classifier.create_data_pickle()
+    genre_classifier.predict(data_x)
+        
+if __name__ == "__main__":
+    main()
