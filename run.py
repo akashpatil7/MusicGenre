@@ -37,3 +37,17 @@ def load_track(filename, enforce_shape=None):
 
     features[features == 0] = 1e-6
     return (np.log(features), float(new_input.shape[0]) / sample_rate)
+
+class GenreClassifier:
+        def __init__(self,data_set_path,extension):
+                self.data_set_path=data_set_path
+                self.file_meta=file = open('meta.txt','w')
+                self.output_file=open('output.txt','w')
+                self.file_list=[]
+                self.extension=extension
+                
+def main():
+    parser = argparse.ArgumentParser(description='Recognize the genre of music in a given folder')
+    parser.add_argument('location',metavar='location',type=str,help='Folder location of the songs')
+    parser.add_argument('extension',metavar='extension',type=str,help='Song extension like mp3',default='mp3')
+    args=parser.parse_args()
