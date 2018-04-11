@@ -46,8 +46,27 @@ class GenreClassifier:
                 self.file_list=[]
                 self.extension=extension
                 
+def create_data_pickle(self):
+        output=np.array([])
+        id=1
+        for root, dirnames, filenames in os.walk(self.data_set_path):
+            for filename in fnmatch.filter(filenames, '*.'+self.extension):
+                full_file_path=os.path.join(root, filename)
+                print('Processing '+full_file_path)
+                self.file_list.append(full_file_path)
+                self.file_meta.write(str(id)+'|'+full_file_path+'\n')
+                mel_output,_=load_track(full_file_path,DEFAULT_SHAPE)
+                mel_output=np.expand_dims(mel_output, axis=0)
+                if output.shape[0] == 0:
+                    output=mel_output
+                else:
+                    output=np.vstack((output,mel_output))
+        print(output.shape)
+        return output   
+
 def main():
     parser = argparse.ArgumentParser(description='Recognize the genre of music in a given folder')
     parser.add_argument('location',metavar='location',type=str,help='Folder location of the songs')
     parser.add_argument('extension',metavar='extension',type=str,help='Song extension like mp3',default='mp3')
     args=parser.parse_args()
+    data_x=genre_classifier.create_data_pickle()
