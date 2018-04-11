@@ -16,7 +16,7 @@ from keras.layers import Input, Dense, Lambda, Dropout, Activation, LSTM, \
         TimeDistributed, Convolution1D, MaxPooling1D,Conv1D,AveragePooling1D, Flatten,GlobalAveragePooling1D,GlobalMaxPooling1D,concatenate
 from sklearn.model_selection import train_test_split
 import numpy as np
-import cPickle
+import pickle
 from optparse import OptionParser
 from sys import stderr, argv
 import os
@@ -95,8 +95,8 @@ if __name__ == '__main__':
             metavar='WEIGHTS_PATH')
     
 
-    with open(options.data_path, 'r') as f:
-        data = cPickle.load(f)
+    with open(options.data_path, 'rb') as f:
+        data = pickle.load(f)
 
         model=train_model(data)
 
