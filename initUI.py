@@ -46,7 +46,7 @@ class MainWindow(QMainWindow):
 		label1 = QLabel()
 		pixmap = QPixmap('meter.png') #changes dynamically
 		label1.setPixmap(pixmap)
-		piclay.addWidget(label)
+		piclay.addWidget(label1)
 		
 		playBtn = QPushButton('Play')		
 		stopBtn = QPushButton('Stop')		
