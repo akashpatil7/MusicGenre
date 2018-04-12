@@ -41,10 +41,12 @@ class MainWindow(QMainWindow):
 		seekSliderLayout = QHBoxLayout()
 		controls = QHBoxLayout()
 		#playlistCtrlLayout = QHBoxLayout()
+		piclay = QHBoxLayout()
 		
 		label1 = QLabel()
 		pixmap = QPixmap('meter.png') #changes dynamically
 		label1.setPixmap(pixmap)
+		piclay.addWidget(label)
 		
 		playBtn = QPushButton('Play')		
 		stopBtn = QPushButton('Stop')		
@@ -68,7 +70,7 @@ class MainWindow(QMainWindow):
 		controls.addWidget(playBtn)
 		controls.addWidget(stopBtn)
 
-		controlArea.addWidget(label1)
+		controlArea.addLayout(piclay)
 		controlArea.addLayout(seekSliderLayout)
 		controlArea.addLayout(controls)
 		#controlArea.addLayout(playlistCtrlLayout)
