@@ -6,8 +6,8 @@ import numpy as np
 import librosa as lbr
 import keras.backend as K
 
-GENRES = ['blues', 'classical', 'country', 'disco', 'hiphop', 'jazz', 'metal',
-        'pop', 'reggae', 'rock']
+GENRES = ['0', '1', '2', '3', '4', '5', '6','7']
+GENRE_LOOKUP=['Hip-Hop','Pop','Folk/Blues/Country','Jazz','Rock/Metal','International/Reggae','Electronic','Instrumental']
 WINDOW_SIZE = 2048
 WINDOW_STRIDE = WINDOW_SIZE // 2
 N_MELS = 128
@@ -16,12 +16,6 @@ MEL_KWARGS = {
     'hop_length': WINDOW_STRIDE,
     'n_mels': N_MELS
 }
-
-def get_layer_output_function(model, layer_name):
-    input = model.get_layer('input').input
-    output = model.get_layer(layer_name).output
-    f = K.function([input, K.learning_phase()], output)
-    return lambda x: f([x, 0]) # learning_phase = 0 means test
 
 def load_track(filename, enforce_shape=None):
     new_input, sample_rate = lbr.load(filename, mono=True)
@@ -33,7 +27,8 @@ def load_track(filename, enforce_shape=None):
                     enforce_shape[1])
             features = np.append(features, np.zeros(delta_shape), axis=0)
         elif features.shape[0] > enforce_shape[0]:
-            features = features[: enforce_shape[0], :]
+            offset = features.shape[0] - enforce_shape[0]
+            features = features[offset :, :]
 
     features[features == 0] = 1e-6
     return (np.log(features), float(new_input.shape[0]) / sample_rate)
