@@ -3,6 +3,7 @@ from os.path import expanduser
 from PyQt5.QtWidgets import *
 from PyQt5.QtMultimedia import *
 from PyQt5.QtCore import *
+from PyQt5.QtGui import QIcon, QPixmap
 
 class MainWindow(QMainWindow):
 	def __init__(self):
