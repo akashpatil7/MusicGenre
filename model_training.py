@@ -103,3 +103,6 @@ if __name__ == '__main__':
     with open(options.model_path, 'w') as f:
         f.write(model.to_yaml())
     model.save_weights(options.weights_path)
+
+#model.save('models/weights.h5')
+
