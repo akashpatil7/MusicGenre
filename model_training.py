@@ -5,8 +5,6 @@ THEANO_FLAGS=mode=FAST_RUN,device=gpu,floatX=float32 python model_training.py
 device=gpu : When device is set to GPU computations become faster
 floatX=float32 is to ensure that output variables have a float32 data type
 '''
-
-from common import GENRES
 from keras.callbacks import Callback
 from keras.utils import np_utils
 from keras.models import Model
@@ -21,6 +19,8 @@ from optparse import OptionParser
 from sys import stderr, argv
 import os
 import tensorflow as tf
+
+GENRES = ['Hip-Hop','Pop','Folk/Country','Jazz','Rock/Metal','Reggae/Intl','Electronic','Instrumental']
 
 SEED = 42
 N_LAYERS = 3
