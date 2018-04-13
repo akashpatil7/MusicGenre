@@ -86,7 +86,7 @@ def gauge(labels=['Rock/Metal','Folk/Country','Electronic','Jazz','Reggae','Pop'
     ax.axes.set_yticks([])
     ax.axis('equal')
     plt.tight_layout()
-    fig.savefig("meter.png", dpi=200)
+    fig.savefig("meter1.png", dpi=200)
     plt.draw()  
 
 gauge()
