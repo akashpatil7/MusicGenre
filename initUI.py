@@ -94,7 +94,7 @@ class MainWindow(QMainWindow):
 			pass
 		elif self.player.state() == QMediaPlayer.PausedState:
 			self.player.play()
-			
+		
 	def stopHandler(self):
 		self.userAction = 0
 		self.statusBar().showMessage('Stopped at Volume %d'%(self.player.volume()))
