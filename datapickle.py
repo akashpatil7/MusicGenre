@@ -1,3 +1,7 @@
+'''
+ Pickling helps us achieve that since it converts any kind of complex data to 0s and 1s (byte streams). 
+ This process can be referred to as pickling, serialization
+ '''
 import matplotlib
 matplotlib.use('Agg')
 
@@ -14,13 +18,13 @@ GENRES = ['Hip-Hop','Pop','Folk/Country','Jazz','Rock/Metal','Reggae/Intl','Elec
 WINDOW_SIZE = 2048
 WINDOW_STRIDE = WINDOW_SIZE // 2
 N_MELS = 128
-MEL_KWARGS = {
+MEL_KWARGS = {     #keyword arguments
     'n_fft': WINDOW_SIZE,
     'hop_length': WINDOW_STRIDE,
     'n_mels': N_MELS
 }
 
-def load_track(filename, enforce_shape=None):
+def load_track(filename, enforce_shape=None):        #A spectrogram is a visual representation of the spectrum of frequencies of sound or other signal as they vary with time.
     new_input, sample_rate = lbr.load(filename, mono=True)
     features = lbr.feature.melspectrogram(new_input, **MEL_KWARGS).T
 
@@ -37,14 +41,14 @@ def load_track(filename, enforce_shape=None):
 
 TRACK_COUNT = 1000
 
-def get_default_shape(dataset_path):
+def get_default_shape(dataset_path):   #path of the training dataset
     tmp_features, _ = load_track(os.path.join(dataset_path,
-        'blues/blues.00000.au'))
+        'blues/blues.00000.au'))    #Start pickling from this song
     return tmp_features.shape
 
 def collect_data(dataset_path):
     '''
-    Collects data from the GTZAN dataset into a pickle. Computes a Mel-scaled
+    Collects data from the GTZAN/FMA dataset into a pickle. Computes a Mel-scaled
     power spectrogram for each track.
 
     :param dataset_path: path to the GTZAN dataset directory
@@ -78,7 +82,7 @@ if __name__ == '__main__':
             help='path to the GTZAN dataset directory', metavar='DATASET_PATH')
     parser.add_option('-o', '--output_pkl_path', dest='output_pkl_path',
             default=os.path.join(os.path.dirname(__file__), 'data/data.pkl'),
-            help='path to the output pickle', metavar='OUTPUT_PKL_PATH')
+            help='path to the output pickle', metavar='OUTPUT_PKL_PATH')  # to save .pkl file in the /data/genres directory.
     options, args = parser.parse_args()
 
     (x, y, track_paths) = collect_data(options.dataset_path)
