@@ -19,8 +19,34 @@ def rot_text(ang):
     rotation = np.degrees(np.radians(ang) * np.pi / np.pi - np.radians(90))
     return rotation
 
-def gauge(labels=['Rock','Folk','Electronic','Jazz','Reggae','Punk','Metal','Classical','Pop','Hip hop','Country','Instrumental'], \
-          colors='jet_r', arrow=3, title='', fname=False): 
+with open('output.txt', 'r') as myfile:
+    data=myfile.read()
+
+if data == "Rock/Metal":
+    x=1
+elif data == "Folk/Country":
+    x=2
+elif data == "Electronic":
+    x=3
+elif data == "Jazz":
+    x=4
+elif data == "Reggae":
+    x=5
+elif data == "Pop":
+    x=6
+elif data == "Hip hop":
+    x=7
+elif data == "Instrumental":
+    x=8    
+myfile.close()
+'''
+with open('output.txt','r') as f:
+    longest=max(f,key=len)
+    
+print(len(longest))
+'''
+def gauge(labels=['Rock/Metal','Folk/Country','Electronic','Jazz','Reggae','Pop','Hip hop','Instrumental'], \
+          colors='jet_r', arrow=x, title='', fname=False): 
       
     N = len(labels)   
     if arrow > N: 
