@@ -71,7 +71,8 @@ def predict(self,data_x):
         print(data_y.shape)
         for i in range(0,len(data_y)):
             predicted_genre=GENRE_LOOKUP[data_y[i]]
-            self.output_file.write(str(i)+'|'+self.file_list[i]+'|'+predicted_genre+'\n')
+            self.output_file.write(predicted_genre) #this is to generate output for a single song
+            #self.output_file.write(str(i)+'|'+self.file_list[i]+'|'+predicted_genre+'\n') # This is to output recognized genre of playlist of songs into a text file   
         return data_y
 
 def main():
