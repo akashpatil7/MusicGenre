@@ -94,10 +94,27 @@ class MainWindow(QMainWindow):
 			pass
 		elif self.player.state() == QMediaPlayer.PausedState:
 			self.player.play()
+	
+	def runcmd(self):
+		cmd = "python run.py data/genres mp3"
+		os.system(cmd)
+		cmd1 = "python image_generator.py"
+		os.system(cmd1)
 		
+	def changestatus(self):
+		with open('output.txt', 'r') as myfile:
+			data=myfile.read()
+		self.statusBar().showMessage("The Genre of the song is : " + data)
+		
+	def changeimage(self):
+		self.pixmap2 = QPixmap('meter1.png')
+		self.label.setPixmap(self.pixmap2)
+		self.piclay.addWidget(self.label)
+	
 	def stopHandler(self):
 		self.userAction = 0
-		self.statusBar().showMessage('Stopped at Volume %d'%(self.player.volume()))
+		self.changestatus()
+		#self.statusBar().showMessage('Stopped at Volume %d'%(self.player.volume()))
 		if self.player.state() == QMediaPlayer.PlayingState:
 			self.stopState = True
 			self.player.stop()
@@ -109,8 +126,8 @@ class MainWindow(QMainWindow):
 	def qmp_mediaStatusChanged(self):
 		if self.player.mediaStatus() == QMediaPlayer.LoadedMedia and self.userAction == 1:
 			durationT = self.player.duration()
-			self.centralWidget().layout().itemAt(0).layout().itemAt(1).widget().setRange(0,durationT)
-			self.centralWidget().layout().itemAt(0).layout().itemAt(2).widget().setText('%d:%02d'%(int(durationT/60000),int((durationT/1000)%60)))
+			self.centralWidget().layout().itemAt(1).layout().itemAt(1).widget().setRange(0,durationT)
+			self.centralWidget().layout().itemAt(1).layout().itemAt(2).widget().setText('%d:%02d'%(int(durationT/60000),int((durationT/1000)%60)))
 			self.player.play()
 			
 	def qmp_stateChanged(self):
@@ -118,11 +135,16 @@ class MainWindow(QMainWindow):
 			self.player.stop()
 		
 	def qmp_positionChanged(self, position,senderType=False):
-		sliderLayout = self.centralWidget().layout().itemAt(0).layout()
+		sliderLayout = self.centralWidget().layout().itemAt(1).layout()
 		if senderType == False:
 			sliderLayout.itemAt(1).widget().setValue(position)
-		#update the text label
-		sliderLayout.itemAt(0).widget().setText('%d:%02d'%(int(position/60000),int((position/1000)%60)))
+		t1 = '%d:%02d'%(int(position/60000),int((position/1000)%60))
+		sliderLayout.itemAt(0).widget().setText(t1)
+		if t1 == '0:01':
+			self.runcmd()
+		if t1 == '0:50':
+			self.changestatus()
+			self.changeimage()
 	
 	def seekPosition(self, position):
 		sender = self.sender()
@@ -142,8 +164,16 @@ class MainWindow(QMainWindow):
 		if fileChoosen != None:
 			self.currentPlaylist.addMedia(QMediaContent(fileChoosen[0]))
 
+	def pick_new(self):
+		self.playlist = QMediaPlaylist()
+		self.url = QUrl.fromLocalFile("/data/genres/Watch.mp3")
+		self.playlist.addMedia(QMediaContent(self.url))
+		self.player = QMediaPlayer()
+		self.player.setPlaylist(self.playlist)
+		self.player.play()		
+			
 	def closeEvent(self,event):
-		reply = QMessageBox.question(self,'Message','Pres Yes to Close.',QMessageBox.Yes|QMessageBox.No,QMessageBox.Yes)
+		reply = QMessageBox.question(self,'Message','Press Yes to Close.',QMessageBox.Yes|QMessageBox.No,QMessageBox.Yes)
 		
 		if reply == QMessageBox.Yes :
 			qApp.quit()
