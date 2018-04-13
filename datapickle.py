@@ -1,4 +1,3 @@
-from common import load_track, GENRES
 import matplotlib
 matplotlib.use('Agg')
 
