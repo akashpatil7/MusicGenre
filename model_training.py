@@ -1,10 +1,3 @@
-'''
-GPU command:
-THEANO_FLAGS=mode=FAST_RUN,device=gpu,floatX=float32 python model_training.py
-
-device=gpu : When device is set to GPU computations become faster
-floatX=float32 is to ensure that output variables have a float32 data type
-'''
 from keras.callbacks import Callback
 from keras.utils import np_utils
 from keras.models import Model
