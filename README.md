@@ -10,4 +10,3 @@ On running model_training.py for that dataset, a HDF5 file will be generated in 
 *python run.y data/genres mp3*
 
 This classifier predicts the genre of the songs stored /data directory and outputs a output.txt file containing the genre of the song. Run initUI.py and select the song to be predicted from /data folder click on 'play' button.
-
